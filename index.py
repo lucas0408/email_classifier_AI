@@ -1,21 +1,15 @@
 from flask import Flask, render_template, request
-import nltk
 import re
 import PyPDF2
 import google.generativeai as genai
 import io
 import os
-
-from nltk.corpus import stopwords
-from nltk.stem import PorterStemmer
-
 app = Flask(__name__)
 
 genai.configure(api_key=os.environ.get("GEMINI_API_KEY", "SUA_CHAVE_AQUI"))
 model = genai.GenerativeModel('gemini-2.0-flash')  
 
 def extract_text_from_file(file):
-    """Extrai texto de arquivo .txt ou .pdf"""
     filename = file.filename.lower()
     
     if filename.endswith('.pdf'):
@@ -34,17 +28,11 @@ def extract_text_from_file(file):
 def preprocess(text):
     text = text.lower()
     text = re.sub(r"[^a-zA-ZÀ-ÿ\s]", "", text)
-    words = nltk.word_tokenize(text)
-    stop_words = set(stopwords.words("portuguese"))
-    words = [w for w in words if w not in stop_words]
-    stemmer = PorterStemmer()
-    words = [stemmer.stem(w) for w in words]
+    words = text.split() 
     return " ".join(words)
 
 def classify_email(text):
-    """Classifica email usando Google Gemini"""
-    text_preview = text[:1000]  
-    
+    text_preview = text[:100]  
     prompt = f"""Analise este email e classifique-o como PRODUTIVO ou IMPRODUTIVO.
 
     PRODUTIVO: Emails relacionados a trabalho, reuniões, projetos, tarefas, clientes, fornecedores, assuntos profissionais importantes.
@@ -55,7 +43,6 @@ def classify_email(text):
     {text_preview}
 
     Responda APENAS com uma palavra: PRODUTIVO ou IMPRODUTIVO"""
-
     try:
         response = model.generate_content(prompt)
         result = response.text.strip().upper()
@@ -64,7 +51,6 @@ def classify_email(text):
             return "Produtivo"
         elif "IMPRODUTIVO" in result:
             return "Improdutivo"
-            
     except Exception as e:
         return f"Erro ao classificar: {str(e)}"
 
@@ -81,7 +67,7 @@ def generate_response(category, text):
         Resposta:"""
     else:
         prompt = f"""Escreva uma resposta (sem assunto) educada este email IMPRODUTIVO de forma SIMPLES e profissional.
-        Mantenha a resposta curta (máximo 1 parágrafos).
+        Mantenha a resposta curta (máximo 1 parágrafo).
         
         Email recebido:
         {text_preview}
@@ -102,7 +88,6 @@ def index():
 def process():
     text = ""
     error = None
-
     try:
         file = request.files.get("file")
         if file and file.filename:

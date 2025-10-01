@@ -148,9 +148,11 @@
             e.preventDefault();
             uploadArea.classList.remove('dragover');
             fileInput.files = e.dataTransfer.files;
+            
             if (fileInput.files.length > 0) {
                 fileName.textContent = `Arquivo selecionado: ${fileInput.files[0].name}`;
                 fileName.style.display = 'block';
+                clearFileBtn.style.display = 'inline-block';
             }
         });
 
