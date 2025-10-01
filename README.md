@@ -37,11 +37,13 @@ O sistema foi desenvolvido com **Flask (Python)** e integrado ao modelo **Gemini
 ```
 📦 email-classifier-ai
 ┣ 📂 static/
-┃ ┗ 📂 css/              # Arquivos de estilo
-┣ 📂 templates/          # Páginas HTML
-┣ 📄 index.py              # Backend Flask
+┃ ┗ 📂 css/
+┃   ┗ 📄 style.css       # Arquivo de estilo
+┣ 📂 templates/
+┃ ┗ 📄 index.html        # Página principal
+┣ 📄 index.py            # Backend Flask
 ┣ 📄 requirements.txt    # Dependências do projeto
-┗ 📄 README.md
+┣ 📄 vercel.json         # Configuração do deploy
 ```
 
 ---
@@ -51,8 +53,8 @@ O sistema foi desenvolvido com **Flask (Python)** e integrado ao modelo **Gemini
 ### 1. Clone o repositório:
 
 ```bash
-git clone https://github.com/lucas0408/email-classifier-ai.git
-cd email-classifier-ai
+git clone https://github.com/lucas0408/email-classifier-AI.git
+cd email-classifier-AI
 ```
 
 ### 2. Crie um ambiente virtual e instale as dependências:
@@ -74,7 +76,7 @@ set GEMINI_API_KEY="sua_chave_aqui"      # Windows
 ### 4. Rode a aplicação:
 
 ```bash
-python app.py
+python index.py
 ```
 
 ### 5. Acesse no navegador:
@@ -87,10 +89,17 @@ http://127.0.0.1:5000
 
 ## 📸 Demonstração
 
-🔹 **Tela inicial:** Upload ou inserção de texto  
-🔹 **Resultado:** Classificação + resposta gerada automaticamente
+### 🔹 Tela inicial: Upload ou inserção de texto
 
-*(adicione prints depois que subir no GitHub para ficar mais atrativo)*
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/7b120a99-d94d-4511-bcc2-a6a023d92c46" alt="Tela inicial do Email Classifier" width="800"/>
+</div>
+
+### 🔹 Resultado: Classificação + resposta gerada automaticamente
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/91829b96-909c-43bf-98b9-6820143defb7" alt="Tela de resultado com classificação" width="800"/>
+</div>
 
 ---
 
@@ -98,7 +107,7 @@ http://127.0.0.1:5000
 
 Desenvolvido por **Lucas Gabriel** 🚀
 
-- [LinkedIn](https://linkedin.com/in/seu-perfil)
+- [LinkedIn](https://www.linkedin.com/in/lucas-gabriel-navas-sabino-150640250)
 - [GitHub](https://github.com/lucas0408)
 
 ---
